@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IRAYA — Women's Clothing. Modern Edge.</title>
+  <meta name="description" content="IRAYA — modern women's wear. Shop the edit. Order on WhatsApp.">
+  <meta property="og:title" content="IRAYA — Women's Clothing">
+  <meta property="og:description" content="Modern edge. Bold design. Shop IRAYA.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=1200&q=80">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #ffffff;
+      --black: #000000;
+      --gray: #3d3d3d;
+      --gray-light: #6b6b6b;
+      --rose: #d4a5a5;
+      --coral: #ff6b6b;
+      --accent: var(--coral);
+      --wa: #25d366;
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 72px;
+    }
+    body {
+      font-family: "Inter", system-ui, sans-serif;
+      color: var(--black);
+      background: var(--white);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* Intro overlay */
+    .intro {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: var(--black);
+      display: grid;
+      place-items: center;
+      transition: opacity 0.7s var(--ease), visibility 0.7s;
+    }
+    .intro.done { opacity: 0; visibility: hidden; pointer-events: none; }
+    .intro-logo {
+      font-family: "Syne", sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 12vw, 7rem);
+      color: var(--white);
+      letter-spacing: 0.08em;
+      animation: introSlide 1s var(--ease) forwards;
+    }
+    @keyframes introSlide {
+      from { transform: translateY(-120%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Cursor sparks */
+    #spark-layer { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
+    .spark {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.85;
+      pointer-events: none;
+      transition: opacity 0.5s;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      padding: 18px 24px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: "Syne", sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: 0.12em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 1px;
+      background: var(--black);
+      transition: width 0.3s var(--ease);
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+    }
+    .burger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--black);
+      transition: transform 0.3s;
+    }
+    .burger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    @media (max-width: 768px) {
+      .burger { display: flex; }
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        padding: 24px;
+        background: var(--white);
+        border-bottom: 1px solid #eee;
+        gap: 20px;
+        transform: translateY(-120%);
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.35s var(--ease);
+      }
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--white);
+      overflow: hidden;
+    }
+    .hero-video-wrap {
+      position: absolute;
+      inset:  0;
+    }
+    .hero-video-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.05);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.65) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 100px 24px 120px;
+      max-width: 900px;
+    }
+    .hero-glitch {
+      font-family: "Syne", sans-serif;
+      font-weight: 800;
+      font-size: clamp(4rem, 18vw, 12rem);
+      line-height: 0.95;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      animation: heroScale 1.1s 0.35s var(--ease) backwards;
+      position: relative;
+      text-shadow: 0 0 40px rgba(212, 165, 165, 0.35);
+    }
+    .hero-glitch::before,
+    .hero-glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      opacity: 0;
+    }
+    .hero-glitch::before {
+      animation: glitch1 0.4s ease 1.2s 2;
+      color: var(--rose);
+      clip-path: inset(40% 0 35% 0);
+    }
+    .hero-glitch::after {
+      animation: glitch2 0.4s ease 1.35s 2;
+      color: var(--coral);
+      clip-path: inset(65% 0 10% 0);
+    }
+    @keyframes glitch1 {
+      0%, 100% { opacity: 0; transform: translate(0); }
+      20% { opacity: 0.85; transform: translate(-3px, 2px); }
+      40% { opacity: 0.5; transform: translate(4px, -1px); }
+    }
+    @keyframes glitch2 {
+      0%, 100% { opacity: 0; transform: translate(0); }
+      25% { opacity: 0.75; transform: translate(3px, -2px); }
+      50% { opacity: 0.4; transform: translate(-4px, 1px); }
+    }
+    @keyframes heroScale {
+      from { opacity: 0; transform: scale(0.88); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .hero-sub {
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-top: 20px;
+      opacity: 0.92;
+      animation: fadeUp 0.9s 0.6s var(--ease) backwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .btn-hero {
+      display: inline-flex;
+      margin-top: 36px;
+      padding: 16px 40px;
+      background: var(--black);
+      color: var(--white);
+      font-family: "Inter", sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      border: 2px solid var(--black);
+      cursor: pointer;
+      transition: transform 0.35s var(--ease), padding 0.35s var(--ease), box-shadow 0.35s;
+      animation: fadeUp 0.9s 0.8s var(--ease) backwards;
+    }
+    .btn-hero:hover {
+      transform: scale(1.05);
+      padding: 16px 52px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.75;
+    }
+    .scroll-hint span {
+      display: block;
+      width: 1px;
+      height: 36px;
+      background: linear-gradient(transparent, var(--white));
+      animation: bounceArrow 1.6s ease-in-out infinite;
+    }
+    @keyframes bounceArrow {
+      0%, 100% { transform: translateY(0); opacity: 0.4; }
+      50% { transform: translateY(10px); opacity: 1; }
+    }
+
+    section { padding: 88px 24px; }
+    .section-inner { max-width: 1280px; margin: 0 auto; }
+
+    .section-head {
+      font-family: "Syne", sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: 0.04em;
+      margin-bottom: 48px;
+      text-transform: uppercase;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal.stagger { transition-delay: calc(var(--i, 0) * 0.1s); }
+
+    /* Products */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 900px) {
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .product-grid { grid-template-columns: 1fr; }
+    }
+
+    .product-card {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: #f5f5f5;
+      cursor: pointer;
+    }
+    .product-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease);
+    }
+    .product-card:hover img { transform: scale(1.1); }
+    .product-cap {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.85));
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+      transform: translateY(100%);
+      transition: transform 0.45s var(--ease);
+    }
+    .product-card:hover .product-cap { transform: translateY(0); }
+    .product-cap h3 {
+      font-family: "Syne", sans-serif;
+      font-size: 1.15rem;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .product-cap .price { color: var(--rose); font-weight: 600; margin-bottom: 14px; }
+    .btn-view {
+      align-self: flex-start;
+      padding: 10px 22px;
+      background: var(--white);
+      color: var(--black);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s;
+    }
+    .product-card:hover .btn-view {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+    .stagger { transition-delay: calc(var(--i) * 0.08s); }
+
+    /* Featured video */
+    .film-section {
+      padding: 0;
+      overflow: hidden;
+    }
+    .film-wrap {
+      position: relative;
+      min-height: 70vh;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 48px 24px;
+    }
+    .film-wrap video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .film-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+    }
+    .film-text {
+      position: relative;
+      z-index: 2;
+      font-family: "Syne", sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 8vw, 5rem);
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      text-align: center;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: transform 1s var(--ease), opacity 1s var(--ease);
+    }
+    .film-text.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .film-scale {
+      transform: scale(0.92);
+      transition: transform 1.2s var(--ease);
+    }
+    .film-scale.visible { transform: scale(1); }
+
+    /* Marquee */
+    .marquee {
+      padding: 24px 0;
+      overflow: hidden;
+      border-top: 2px solid var(--black);
+      border-bottom: 2px solid var(--black);
+      background: var(--white);
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 32s linear infinite;
+    }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+    .marquee span {
+      font-family: "Syne", sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      white-space: nowrap;
+      padding-right: 0.5em;
+      letter-spacing: -0.02em;
+    }
+    @keyframes marquee {
+      to { transform: translateX(-50%); }
+    }
+
+    /* Collections 3D */
+    .col-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 900px) {
+      .col-row { grid-template-columns: 1fr; }
+    }
+
+    .col-card {
+      position: relative;
+      height: 420px;
+      border-radius: 4px;
+      overflow: hidden;
+      perspective: 1000px;
+      cursor: pointer;
+      transition: box-shadow 0.35s;
+      outline: 1px solid transparent;
+    }
+    .col-card:hover {
+      box-shadow: 0 0 0 2px var(--accent), 0 24px 48px rgba(255, 107, 107, 0.15);
+    }
+    .col-card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: transform 0.15s ease-out;
+      transform-style: preserve-3d;
+    }
+    .col-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease), filter 0.4s;
+    }
+    .col-card:hover img {
+      transform: scale(1.08);
+      filter: brightness(0.55);
+    }
+    .col-cap {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      color: var(--white);
+    }
+    .col-cap h3 {
+      font-family: "Syne", sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: 0.12em;
+    }
+    .col-btn {
+      margin-top: 20px;
+      padding: 12px 28px;
+      background: var(--white);
+      color: var(--black);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: none;
+      transform: translateY(24px);
+      opacity: 0;
+      transition: 0.4s var(--ease);
+    }
+    .col-card:hover .col-btn {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Why flip */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 900px) {
+      .why-grid { grid-template-columns: 1fr; }
+    }
+
+    .flip-scene {
+      height: 220px;
+      perspective: 1200px;
+    }
+    .flip-card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.65s var(--ease);
+    }
+    .flip-scene:hover .flip-card { transform: rotateY(180deg); }
+    .flip-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      border: 1px solid #e8e8e8;
+    }
+    .flip-front {
+      background: var(--white);
+    }
+    .flip-back {
+      background: var(--black);
+      color: var(--white);
+      transform: rotateY(180deg);
+    }
+    .flip-icon {
+      font-size: 2.25rem;
+      margin-bottom: 12px;
+    }
+    .flip-scene.visible .flip-icon { animation: iconBounce 0.65s ease 0.25s both; }
+    @keyframes iconBounce {
+      0%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-12px); }
+    }
+    .flip-front h3 {
+      font-family: "Syne", sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+    }
+    .flip-back p {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.55;
+    }
+
+    /* Instagram */
+    .ig-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 768px) {
+      .ig-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .ig-cell {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: #f0f0f0;
+    }
+    .ig-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s var(--ease);
+    }
+    .ig-cell:hover img { transform: scale(1.08); }
+    .ig-ov {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      transition: opacity 0.35s;
+      font-size: 1.75rem;
+    }
+    .ig-cell:hover .ig-ov { opacity: 1; }
+    .ig-grid .reveal {
+      transform: translateY(20px) scale(0.94);
+      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+    }
+    .ig-grid .reveal.visible { transform: translateY(0) scale(1); }
+
+    /* Testimonials */
+    .t-carousel {
+      overflow: hidden;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      background: #fafafa;
+    }
+    .t-track {
+      display: flex;
+      transition: transform 0.6s var(--ease);
+    }
+    .t-slide {
+      min-width: 100%;
+      padding: 48px 32px;
+      text-align: center;
+      font-size: 1.05rem;
+    }
+    .t-slide .stars { color: var(--coral); letter-spacing: 4px; margin-bottom: 16px; }
+    .t-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px;
+    }
+    .t-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ccc;
+      border: none;
+      cursor: pointer;
+    }
+    .t-dot.active { background: var(--black); }
+
+    /* CTA */
+    .cta-block {
+      text-align: center;
+      padding: 100px 24px;
+      background: linear-gradient(120deg, #fff 0%, #ffe8e8 35%, #fff 70%, #fff5f5 100%);
+      background-size: 200% 200%;
+      animation: gradShift 12s ease infinite;
+    }
+    @keyframes gradShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .cta-block h2 {
+      font-family: "Syne", sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.75rem, 5vw, 3.2rem);
+      max-width: 800px;
+      margin: 0 auto 16px;
+      text-transform: uppercase;
+    }
+    .cta-block p {
+      color: var(--gray);
+      margin-bottom: 28px;
+      font-weight: 500;
+    }
+    .btn-cta {
+      display: inline-flex;
+      padding: 18px 48px;
+      background: var(--black);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: pulseSoft 2.5s ease-in-out infinite;
+    }
+    .btn-cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+    }
+    @keyframes pulseSoft {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.35); }
+      50% { box-shadow: 0 0 0 14px rgba(255, 107, 107, 0); }
+    }
+
+    footer {
+      padding: 48px 24px 32px;
+      border-top: 1px solid #eee;
+    }
+    .foot-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .foot-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .foot-links a { position: relative; }
+    .foot-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 1px;
+      background: var(--black);
+      transition: width 0.25s;
+    }
+    .foot-links a:hover::after { width: 100%; }
+    .social {
+      display: flex;
+      gap: 16px;
+    }
+    .social a {
+      width: 44px;
+      height: 44px;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 0.9rem;
+      transition: transform 0.25s, border-color 0.25s, background 0.25s;
+    }
+    .social a:hover {
+      transform: scale(1.08);
+      border-color: var(--black);
+      background: #fafafa;
+    }
+
+    [data-parallax] { will-change: transform; }
+  </style>
+</head>
+<body>
+  <div class="intro" id="intro" aria-hidden="true"><div class="intro-logo">IRAYA</div></div>
+  <div id="spark-layer" aria-hidden="true"></div>
+
+  <header>
+    <div class="nav-inner">
+      <a class="logo" href="#top">IRAYA</a>
+      <button class="burger" id="burger" type="button" aria-label="Menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#top">Home</a></li>
+        <li><a href="#edit">Shop</a></li>
+        <li><a href="#collections">Collections</a></li>
+        <li><a href="#cta">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-video-wrap">
+        <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1600&q=80">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-model-wearing-fashionable-outfit-at-an-industrial-venue-39879-large.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-glitch" data-text="IRAYA">IRAYA</h1>
+        <p class="hero-sub">Women's Clothing. Modern Edge.</p>
+        <a class="btn-hero" href="#edit">Shop Now</a>
+      </div>
+      <div class="scroll-hint" aria-hidden="true">Scroll<span></span></div>
+    </section>
+
+    <section id="edit">
+      <div class="section-inner">
+        <h2 class="section-head reveal">The Edit</h2>
+        <div class="product-grid" id="productGrid">
+          <article class="product-card reveal stagger" style="--i:0" data-parallax>
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" alt="Structure blazer" loading="lazy" width="800" height="1066">
+            <div class="product-cap">
+              <h3>Structure Blazer</h3>
+              <p class="price">₹2,499</p>
+              <button type="button" class="btn-view">View</button>
+            </div>
+          </article>
+          <article class="product-card reveal stagger" style="--i:1" data-parallax>
+            <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80" alt="Silk drape dress" loading="lazy" width="800" height="1066">
+            <div class="product-cap">
+              <h3>Silk Drape Dress</h3>
+              <p class="price">₹3,199</p>
+              <button type="button" class="btn-view">View</button>
+            </div>
+          </article>
+          <article class="product-card reveal stagger" style="--i:2" data-parallax>
+            <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=800&q=80" alt="Floral wrap" loading="lazy" width="800" height="1066">
+            <div class="product-cap">
+              <h3>Floral Wrap</h3>
+              <p class="price">₹1,899</p>
+              <button type="button" class="btn-view">View</button>
+            </div>
+          </article>
+          <article class="product-card reveal stagger" style="--i:3" data-parallax>
+            <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?auto=format&fit=crop&w=800&q=80" alt="Tailored set" loading="lazy" width="800" height="1066">
+            <div class="product-cap">
+              <h3>Tailored Set</h3>
+              <p class="price">₹2,899</p>
+              <button type="button" class="btn-view">View</button>
+            </div>
+          </article>
+          <article class="product-card reveal stagger" style="--i:4" data-parallax>
+            <img src="https://images.unsplash.com/photo-1572804013427-4d7ca7268217?auto=format&fit=crop&w=800&q=80" alt="Evening slip" loading="lazy" width="800" height="1066">
+            <div class="product-cap">
+              <h3>Evening Slip</h3>
+              <p class="price">₹2,299</p>
+              <button type="button" class="btn-view">View</button>
+            </div>
+          </article>
+          <article class="product-card reveal stagger" style="--i:5" data-parallax>
+            <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=800&q=80" alt="Couture saree" loading="lazy" width="800" height="1066">
+            <div class="product-cap">
+              <h3>Couture Saree</h3>
+              <p class="price">₹4,499</p>
+              <button type="button" class="btn-view">View</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="film-section reveal" id="film">
+      <div class="film-wrap film-scale" id="filmWrap">
+        <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=1600&q=80">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-young-woman-posing-for-the-camera-in-a-store-39880-large.mp4" type="video/mp4">
+        </video>
+        <div class="film-overlay"></div>
+        <p class="film-text" id="filmText">Wear the Moment</p>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>NEW ARRIVALS • LIMITED EDITION • SHOP NOW • IRAYA • WOMEN'S WEAR • </span>
+        <span>NEW ARRIVALS • LIMITED EDITION • SHOP NOW • IRAYA • WOMEN'S WEAR • </span>
+        <span>NEW ARRIVALS • LIMITED EDITION • SHOP NOW • IRAYA • WOMEN'S WEAR • </span>
+        <span>NEW ARRIVALS • LIMITED EDITION • SHOP NOW • IRAYA • WOMEN'S WEAR • </span>
+      </div>
+    </div>
+
+    <section id="collections">
+      <div class="section-inner">
+        <h2 class="section-head reveal">Collections</h2>
+        <div class="col-row">
+          <div class="col-card reveal tilt" data-tilt>
+            <div class="col-card-inner">
+              <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=900&q=80" alt="Casual" loading="lazy" width="900" height="1200">
+              <div class="col-cap">
+                <h3>CASUAL</h3>
+                <a href="https://wa.me/919999999999?text=Hi%20IRAYA%2C%20I%27m%20interested%20in%20CASUAL%20collection" class="col-btn" target="_blank" rel="noopener">Explore</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-card reveal tilt" data-tilt>
+            <div class="col-card-inner">
+              <img src="https://images.unsplash.com/photo-1572804013427-4d7ca7268217?auto=format&fit=crop&w=900&q=80" alt="Party" loading="lazy" width="900" height="1200">
+              <div class="col-cap">
+                <h3>PARTY</h3>
+                <a href="https://wa.me/919999999999?text=Hi%20IRAYA%2C%20I%27m%20interested%20in%20PARTY%20collection" class="col-btn" target="_blank" rel="noopener">Explore</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-card reveal tilt" data-tilt>
+            <div class="col-card-inner">
+              <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=900&q=80" alt="Traditional" loading="lazy" width="900" height="1200">
+              <div class="col-cap">
+                <h3>TRADITIONAL</h3>
+                <a href="https://wa.me/919999999999?text=Hi%20IRAYA%2C%20I%27m%20interested%20in%20TRADITIONAL%20collection" class="col-btn" target="_blank" rel="noopener">Explore</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="why">
+      <div class="section-inner">
+        <h2 class="section-head reveal">Why Us</h2>
+        <div class="why-grid">
+          <div class="flip-scene reveal">
+            <div class="flip-card">
+              <div class="flip-face flip-front">
+                <span class="flip-icon">⚡</span>
+                <h3>Fast Delivery</h3>
+              </div>
+              <div class="flip-face flip-back">
+                <p>Ships within 3 days across most cities. Track every package.</p>
+              </div>
+            </div>
+          </div>
+          <div class="flip-scene reveal">
+            <div class="flip-card">
+              <div class="flip-face flip-front">
+                <span class="flip-icon">💬</span>
+                <h3>WhatsApp Order</h3>
+              </div>
+              <div class="flip-face flip-back">
+                <p>Message to buy—real humans, zero friction checkout.</p>
+              </div>
+            </div>
+          </div>
+          <div class="flip-scene reveal">
+            <div class="flip-card">
+              <div class="flip-face flip-front">
+                <span class="flip-icon">🔄</span>
+                <h3>Easy Returns</h3>
+              </div>
+              <div class="flip-face flip-back">
+                <p>7-day exchange on unworn pieces. We make it simple.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="instagram">
+      <div class="section-inner">
+        <h2 class="section-head reveal">@IRAYA.CLOTHING</h2>
+        <div class="ig-grid" id="igGrid"></div>
+      </div>
+    </section>
+
+    <section id="testimonials">
+      <div class="section-inner">
+        <h2 class="section-head reveal">Love Letters</h2>
+        <div class="t-carousel reveal" id="tCarousel">
+          <div class="t-track" id="tTrack">
+            <div class="t-slide"><p class="stars">★★★★★</p><p>Love the quality! Fits perfectly. — Priya</p></div>
+            <div class="t-slide"><p class="stars">★★★★★</p><p>Best purchase this year. — Anjali</p></div>
+            <div class="t-slide"><p class="stars">★★★★★</p><p>So easy to order on WhatsApp. — Meera</p></div>
+          </div>
+          <div class="t-dots" id="tDots"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-block reveal" id="cta">
+      <h2>Ready to Elevate Your Style?</h2>
+      <p>Message us on WhatsApp to order</p>
+      <a class="btn-cta" href="https://wa.me/919999999999?text=Hi%20IRAYA%2C%20I%27d%20like%20to%20place%20an%20order." target="_blank" rel="noopener">Order Now →</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot-inner">
+      <div>
+        <p class="logo" style="margin-bottom:8px">IRAYA</p>
+        <p style="font-size:0.85rem;color:var(--gray-light);">© 2025 IRAYA. All rights reserved.</p>
+      </div>
+      <ul class="foot-links">
+        <li><a href="#top">Home</a></li>
+        <li><a href="#edit">Shop</a></li>
+        <li><a href="#cta">Contact</a></li>
+      </ul>
+      <div class="social">
+        <a href="https://instagram.com/IRAYA.clothing" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+        <a href="https://wa.me/919999999999" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+(function () {
+  var WA = "919999999999";
+
+  document.getElementById("burger").addEventListener("click", function () {
+    this.classList.toggle("open");
+    document.getElementById("navLinks").classList.toggle("open");
+  });
+  document.querySelectorAll(".nav-links a").forEach(function (a) {
+    a.addEventListener("click", function () {
+      document.getElementById("burger").classList.remove("open");
+      document.getElementById("navLinks").classList.remove("open");
+    });
+  });
+
+  /* Page intro */
+  window.addEventListener("load", function () {
+    setTimeout(function () {
+      document.getElementById("intro").classList.add("done");
+    }, 900);
+  });
+
+  /* Scroll reveal */
+  var reveals = document.querySelectorAll(".reveal");
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      en.target.classList.add("visible");
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+  reveals.forEach(function (el) { obs.observe(el); });
+
+  /* Film section */
+  var filmWrap = document.getElementById("filmWrap");
+  var filmText = document.getElementById("filmText");
+  var filmObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) {
+        filmWrap.classList.add("visible");
+        filmText.classList.add("visible");
+      }
+    });
+  }, { threshold: 0.25 });
+  filmObs.observe(document.getElementById("film"));
+
+  /* Light parallax on product cards (image zoom on hover stays intact) */
+  window.addEventListener("scroll", function () {
+    document.querySelectorAll("[data-parallax]").forEach(function (card) {
+      if (card.matches(":hover")) return;
+      var r = card.getBoundingClientRect();
+      var mid = r.top + r.height / 2 - window.innerHeight / 2;
+      card.style.transform = "translateY(" + mid * -0.05 + "px)";
+    });
+  }, { passive: true });
+
+  /* 3D tilt collections */
+  document.querySelectorAll("[data-tilt]").forEach(function (card) {
+    var inner = card.querySelector(".col-card-inner");
+    card.addEventListener("mousemove", function (e) {
+      var r = card.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      inner.style.transform = "rotateY(" + x * 12 + "deg) rotateX(" + (-y * 10) + "deg)";
+    });
+    card.addEventListener("mouseleave", function () {
+      inner.style.transform = "";
+    });
+  });
+
+  /* Cursor sparks */
+  var layer = document.getElementById("spark-layer");
+  var sparks = [];
+  var maxSparks = 18;
+  document.addEventListener("mousemove", function (e) {
+    if (window.matchMedia("(max-width:768px)").matches) return;
+    var sp = document.createElement("span");
+    sp.className = "spark";
+    sp.style.left = e.clientX + "px";
+    sp.style.top = e.clientY + "px";
+    layer.appendChild(sp);
+    sparks.push(sp);
+    if (sparks.length > maxSparks) {
+      var old = sparks.shift();
+      if (old && old.parentNode) old.parentNode.removeChild(old);
+    }
+    requestAnimationFrame(function () {
+      sp.style.opacity = "0";
+      sp.style.transform = "translate(" + (Math.random() * 20 - 10) + "px, " + (Math.random() * 20 - 10) + "px) scale(0)";
+      sp.style.transition = "opacity 0.45s, transform 0.45s";
+    });
+    setTimeout(function () {
+      if (sp.parentNode) sp.parentNode.removeChild(sp);
+      var i = sparks.indexOf(sp);
+      if (i > -1) sparks.splice(i, 1);
+    }, 500);
+  });
+
+  /* View buttons → WhatsApp */
+  document.querySelectorAll(".btn-view").forEach(function (btn, i) {
+    btn.addEventListener("click", function () {
+      var card = btn.closest(".product-card");
+      var name = card.querySelector("h3").textContent;
+      window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent("Hi IRAYA, I'm interested in " + name), "_blank");
+    });
+  });
+
+  /* IG grid */
+  var igUrls = [
+    { src: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80", href: "https://instagram.com/IRAYA.clothing" },
+    { src: "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=600&q=80", href: "https://instagram.com/IRAYA.clothing" },
+    { src: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=600&q=80", href: "https://instagram.com/IRAYA.clothing" },
+    { src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80", href: "https://instagram.com/IRAYA.clothing" },
+    { src: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=600&q=80", href: "https://instagram.com/IRAYA.clothing" },
+    { src: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80", href: "https://instagram.com/IRAYA.clothing" },
+    { src: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=600&q=80", href: "https://instagram.com/IRAYA.clothing" },
+    { src: "https://images.unsplash.com/photo-1551232864-3f0890e580d9?auto=format&fit=crop&w=600&q=80", href: "https://instagram.com/IRAYA.clothing" }
+  ];
+  var igGrid = document.getElementById("igGrid");
+  igUrls.forEach(function (u, idx) {
+    var a = document.createElement("a");
+    a.href = u.href;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.className = "ig-cell reveal stagger";
+    a.style.setProperty("--i", idx);
+    a.innerHTML = '<img src="' + u.src + '" alt="" loading="lazy" width="600" height="600"><span class="ig-ov">📷</span>';
+    igGrid.appendChild(a);
+    obs.observe(a);
+  });
+
+  /* Testimonial carousel */
+  var track = document.getElementById("tTrack");
+  var slides = track.children.length;
+  var idx = 0;
+  var dots = document.getElementById("tDots");
+  for (var d = 0; d < slides; d++) {
+    var dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = "t-dot" + (d === 0 ? " active" : "");
+    (function (di) {
+      dot.addEventListener("click", function () { go(di); });
+    })(d);
+    dots.appendChild(dot);
+  }
+  function go(i) {
+    idx = i;
+    track.style.transform = "translateX(-" + idx * 100 + "%)";
+    dots.querySelectorAll(".t-dot").forEach(function (dot, j) {
+      dot.classList.toggle("active", j === idx);
+    });
+  }
+  var car = document.getElementById("tCarousel");
+  var tmr;
+  function startT() {
+    clearInterval(tmr);
+    tmr = setInterval(function () { go((idx + 1) % slides); }, 4500);
+  }
+  car.addEventListener("mouseenter", function () { clearInterval(tmr); });
+  car.addEventListener("mouseleave", startT);
+  startT();
+})();
+  </script>
+</body>
+</html>
